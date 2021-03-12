@@ -20,6 +20,7 @@ $(".newPuzzle").click(() => document.querySelector("form").reset());
 
 $(".submit").click(() => {
   setBoard();
+  solve(board);
   updateBoardDisplay();
 });
 
@@ -49,34 +50,34 @@ function updateBoardDisplay() {
   }
 }
 
-// function sudokuSolver(board) {
-//     for (let i=0; i<9; i++) {
-//         for (let j=0; j<9; j++) {
-//             if (data[i][j] == '') {
-//                 for (let k = 1; k <= 9; k++) {
-//                     if (isValid(board, i, j, k)) {
-//                         data[i][j] = k.toString();
-//                         if (sudokuSolver(board)) {
-//                             return true;
-//                         } else {
-//                             data[i][j] = "";
-//                         }
-//                     }
-//                 }
-//                 return false;
-//             }
-//         }
-//     }
-//     return true;
-// }
+function solve(board) {
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (board[i][j] == "") {
+        for (let k = 1; k <= 9; k++) {
+          if (isValid(board, i, j, k)) {
+            board[i][j] = k.toString();
+            if (solve(board)) {
+              return true;
+            } else {
+              board[i][j] = "";
+            }
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
-// function isValid(board, row, col, k) {
-//     for (let i = 0; i < 9; i++) {
-//         const m = 3 * Math.floor(row / 3) + Math.floor(i / 3);
-//         const n = 3 * Math.floor(col / 3) + i % 3;
-//         if (board[row][i] == k || board[i][col] == k || board[m][n] == k) {
-//             return false
-//         }
-//     }
-//     return true;
-// }
+function isValid(board, row, col, k) {
+  for (let i = 0; i < 9; i++) {
+    const m = 3 * Math.floor(row / 3) + Math.floor(i / 3);
+    const n = 3 * Math.floor(col / 3) + (i % 3);
+    if (board[row][i] == k || board[i][col] == k || board[m][n] == k) {
+      return false;
+    }
+  }
+  return true;
+}
