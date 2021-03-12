@@ -33,6 +33,15 @@ input {
   outline: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*for firefox compatibility*/
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 /*remove border-bottom from last row */
 .inner-grid:nth-last-of-type(-n + 3) .box:nth-last-of-type(-n + 3) {
   border-bottom: none;
